@@ -1,5 +1,9 @@
 # flutter_media_metadata_plus
 
+<p align="center">
+  <img src="icon/logo.png" width="128">
+</p>
+
 [![Pub Version](https://img.shields.io/pub/v/flutter_media_metadata_plus?logo=flutter&color=blue)](https://pub.dev/packages/flutter_media_metadata_plus)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 

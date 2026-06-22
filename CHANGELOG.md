@@ -1,3 +1,10 @@
+## 1.2.1
+
+- Fixed Gradle configuration issue for newer Flutter versions.
+- Refactored `FilePicker` usage in example for better error handling.
+- Removed redundant imports and suppressed deprecation warnings.
+- Added package logo and screenshots for pub.dev.
+
 ## 1.2.0
 
 - Migrated to Dart 3.0 and Flutter 3.10.
