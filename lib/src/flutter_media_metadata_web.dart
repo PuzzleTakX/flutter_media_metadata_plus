@@ -51,14 +51,14 @@ class MetadataRetriever {
       final info = mediainfo as _MediaInfo;
       info
           .analyzeData(
-        (() => bytes.length.toJS).toJS,
-        ((JSNumber chunkSize, JSNumber offset) {
-          final start = offset.toDartInt;
-          var end = start + chunkSize.toDartInt;
-          if (end > bytes.length) end = bytes.length;
-          return Future.value(bytes.sublist(start, end).toJS).toJS;
-        }).toJS,
-      )
+            (() => bytes.length.toJS).toJS,
+            ((JSNumber chunkSize, JSNumber offset) {
+              final start = offset.toDartInt;
+              var end = start + chunkSize.toDartInt;
+              if (end > bytes.length) end = bytes.length;
+              return Future.value(bytes.sublist(start, end).toJS).toJS;
+            }).toJS,
+          )
           .toDart
           .then(
         (JSString result) {
