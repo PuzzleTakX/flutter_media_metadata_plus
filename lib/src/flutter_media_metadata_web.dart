@@ -75,10 +75,12 @@ class MetadataRetriever {
               .then(
             allowInterop(
               (result) {
-                var rawMetadataJson = jsonDecode(result as String)['media']['track'];
+                var rawMetadataJson =
+                    jsonDecode(result as String)['media']['track'];
                 bool isFound = false;
-                final tracks =
-                    rawMetadataJson is List ? rawMetadataJson : [rawMetadataJson];
+                final tracks = rawMetadataJson is List
+                    ? rawMetadataJson
+                    : [rawMetadataJson];
 
                 dynamic targetData;
                 for (final data in tracks) {
