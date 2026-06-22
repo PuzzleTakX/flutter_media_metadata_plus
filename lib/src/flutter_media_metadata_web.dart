@@ -9,6 +9,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:js' show allowInterop;
 // ignore: deprecated_member_use
 import 'package:js/js.dart';
 import 'package:flutter/services.dart';

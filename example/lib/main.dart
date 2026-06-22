@@ -1,10 +1,9 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter_media_metadata/flutter_media_metadata.dart';
+import 'package:flutter_media_metadata_plus/flutter_media_metadata_plus.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -37,54 +36,44 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'flutter_media_metadata',
+          'flutter_media_metadata_plus',
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          FilePicker.platform.pickFiles()
-            ..then(
-              (result) {
-                if (result == null) return;
-                if (result.count == 0) return;
-                if (kIsWeb) {
-                  /// Use [MetadataRetriever.fromBytes] on Web.
-                  MetadataRetriever.fromBytes(
-                    result.files.first.bytes!,
-                  )
-                    ..then(
-                      (metadata) {
-                        showData(metadata);
-                      },
-                    )
-                    ..catchError((_) {
-                      setState(() {
-                        _child = const Text('Couldn\'t extract metadata');
-                      });
-                    });
-                } else {
-                  /// Use [MetadataRetriever.fromFile] on Windows, Linux, macOS, Android or iOS.
-                  MetadataRetriever.fromFile(
-                    File(result.files.first.path!),
-                  )
-                    ..then(
-                      (metadata) {
-                        showData(metadata);
-                      },
-                    )
-                    ..catchError((_) {
-                      setState(() {
-                        _child = const Text('Couldn\'t extract metadata');
-                      });
-                    });
-                }
-              },
-            )
-            ..catchError((_) {
-              setState(() {
-                _child = const Text('Couldn\'t to select file');
-              });
+        onPressed: () async {
+          try {
+            final result = await FilePicker.pickFiles();
+            if (result == null || result.count == 0) return;
+            if (kIsWeb) {
+              /// Use [MetadataRetriever.fromBytes] on Web.
+              try {
+                final metadata = await MetadataRetriever.fromBytes(
+                  result.files.first.bytes!,
+                );
+                showData(metadata);
+              } catch (_) {
+                setState(() {
+                  _child = const Text('Couldn\'t extract metadata');
+                });
+              }
+            } else {
+              /// Use [MetadataRetriever.fromFile] on Windows, Linux, macOS, Android or iOS.
+              try {
+                final metadata = await MetadataRetriever.fromFile(
+                  File(result.files.first.path!),
+                );
+                showData(metadata);
+              } catch (_) {
+                setState(() {
+                  _child = const Text('Couldn\'t extract metadata');
+                });
+              }
+            }
+          } catch (_) {
+            setState(() {
+              _child = const Text('Couldn\'t select file');
             });
+          }
         },
         child: const Icon(Icons.file_present),
       ),

@@ -2,8 +2,9 @@
 
 - Fixed Gradle configuration issue for newer Flutter versions.
 - Refactored `FilePicker` usage in example for better error handling.
-- Removed redundant imports and suppressed deprecation warnings.
+- Removed redundant imports and fixed `allowInterop` undefined error on Web.
 - Added package logo and screenshots for pub.dev.
+- Updated dependencies for better compatibility.
 
 ## 1.2.0
 

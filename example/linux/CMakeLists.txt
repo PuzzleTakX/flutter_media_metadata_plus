@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "flutter_media_metadata_example")
-set(APPLICATION_ID "com.alexmercerind.flutter_media_metadata")
+set(BINARY_NAME "flutter_media_metadata_plus_example")
+set(APPLICATION_ID "com.puzzletakx.flutter_media_metadata_plus")
 
 cmake_policy(SET CMP0063 NEW)
 
