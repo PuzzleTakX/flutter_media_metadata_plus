@@ -1,3 +1,12 @@
+## 1.2.9
+
+- Fixed dangling library doc comments to improve static analysis score.
+
+## 1.2.8
+
+- Added Swift Package Manager (SPM) support for iOS and macOS.
+- Improved pub.dev score for platform support.
+
 ## 1.2.7
 
 - Cleaned up unnecessary imports in Web platform.
