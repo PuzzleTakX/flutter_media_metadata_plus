@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-set(PROJECT_NAME flutter_media_metadata)
+set(PROJECT_NAME flutter_media_metadata_plus)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -38,7 +38,7 @@ target_compile_definitions(
 )
 
 set(
-  flutter_media_metadata_bundled_libraries
+  flutter_media_metadata_plus_bundled_libraries
   ""
   PARENT_SCOPE
 )

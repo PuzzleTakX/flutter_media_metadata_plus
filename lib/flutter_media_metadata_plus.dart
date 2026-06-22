@@ -1,13 +1,13 @@
-/// ## flutter_media_metadata
+/// ## flutter_media_metadata_plus
 ///
-/// A Flutter plugin to read metadata of media files.
+/// A high-performance Flutter plugin to read metadata and album art of media files.
 ///
 /// MIT License.
-/// Copyright (c) 2021-2022, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+/// Copyright (c) 2024-2026, Bahman Teymouri Nezhad (PuzzleTakX) (Maintainer).
 ///
 /// _Minimal Example_
 /// ```dart
-/// final metadata = MetadataRetriever.fromBytes(byteData);
+/// final metadata = await MetadataRetriever.fromFile(file);
 /// String? trackName = metadata.trackName;
 /// List<String>? trackArtistNames = metadata.trackArtistNames;
 /// String? albumName = metadata.albumName;
@@ -25,8 +25,8 @@
 /// Uint8List? albumArt = metadata.albumArt;
 /// ```
 ///
-library flutter_media_metadata;
+library flutter_media_metadata_plus;
 
-export 'package:flutter_media_metadata/src/flutter_media_metadata_native.dart'
-    if (dart.library.html) 'package:flutter_media_metadata/src/flutter_media_metadata_web.dart';
-export 'package:flutter_media_metadata/src/models/metadata.dart';
+export 'package:flutter_media_metadata_plus/src/flutter_media_metadata_native.dart'
+    if (dart.library.html) 'package:flutter_media_metadata_plus/src/flutter_media_metadata_web.dart';
+export 'package:flutter_media_metadata_plus/src/models/metadata.dart';

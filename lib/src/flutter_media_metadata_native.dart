@@ -1,13 +1,15 @@
-/// This file is a part of flutter_media_metadata (https://github.com/alexmercerind/flutter_media_metadata).
+/// This file is a part of flutter_media_metadata_plus (https://github.com/PuzzleTakX/flutter_media_metadata_plus).
 ///
-/// Copyright (c) 2021-2022, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+
+/// Copyright (c) 2021-2022, Hitesh Kumar Saini (Original Author).
+/// Copyright (c) 2024-2026, Bahman Teymouri Nezhad (PuzzleTakX) (Maintainer).
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 import 'dart:io';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_media_metadata/src/models/metadata.dart';
+import 'package:flutter_media_metadata_plus/src/models/metadata.dart';
 
 /// ## MetadataRetriever
 ///
@@ -35,14 +37,20 @@ import 'package:flutter_media_metadata/src/models/metadata.dart';
 class MetadataRetriever {
   /// Extracts [Metadata] from a [File]. Works on Windows, Linux, macOS, Android & iOS.
   static Future<Metadata> fromFile(File file) async {
-    var metadata = await _kChannel.invokeMethod(
+    final Map<dynamic, dynamic>? metadata = await _kChannel.invokeMethod(
       'MetadataRetriever',
       {
         'filePath': file.path,
       },
     );
-    metadata['filePath'] = file.path;
-    return Metadata.fromJson(metadata);
+
+    if (metadata == null) {
+      throw Exception('Failed to extract metadata from file: ${file.path}');
+    }
+
+    final result = Map<String, dynamic>.from(metadata);
+    result['filePath'] = file.path;
+    return Metadata.fromJson(result);
   }
 
   /// Extracts [Metadata] from [Uint8List]. Works only on Web.
@@ -53,4 +61,4 @@ class MetadataRetriever {
   }
 }
 
-var _kChannel = const MethodChannel('flutter_media_metadata');
+var _kChannel = const MethodChannel('flutter_media_metadata_plus');

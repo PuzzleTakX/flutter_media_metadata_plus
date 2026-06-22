@@ -1,99 +1,104 @@
-# [flutter_media_metadata](https://github.com/alexmercerind/flutter_media_metadata)
-#### A Flutter plugin to read 🔖 metadata of 🎵 media files.
+# flutter_media_metadata_plus
 
-## Install
+[![Pub Version](https://img.shields.io/pub/v/flutter_media_metadata_plus?logo=flutter&color=blue)](https://pub.dev/packages/flutter_media_metadata_plus)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Add in your `pubspec.yaml`.
+A high-performance Flutter plugin designed to extract 🔖 metadata and 🎵 album art from media files across all platforms. This package is a modernized fork and continuation of the original `flutter_media_metadata`, optimized for Dart 3 and high-speed processing.
+
+---
+
+## 🚀 Key Features
+
+*   **Multi-Platform Support:** Works seamlessly on Android, iOS, Windows, Linux, macOS, and Web.
+*   **High Performance:** Optimized native implementations (C++, Java, Swift) for lightning-fast metadata extraction.
+*   **Rich Metadata:** Retrieve track name, artists, album info, genre, year, duration, bitrate, and more.
+*   **Album Art Extraction:** Highly efficient retrieval of embedded album covers.
+*   **Modern Dart:** Fully compatible with Dart 3.x and Null Safety.
+
+---
+
+## 📊 Performance & Optimization
+
+`flutter_media_metadata_plus` is built with performance in mind:
+*   **Asynchronous Processing:** Heavy lifting is done on background threads/isolates to keep the UI smooth.
+*   **Native Efficiency:** Utilizes `MediaMetadataRetriever` on Android, `AVFoundation` on iOS/macOS, and `MediaInfoLib` on Windows/Linux for optimal speed.
+*   **Memory Efficient:** Optimized memory management when handling high-resolution album arts.
+
+---
+
+## 💻 Platforms
+
+| Platform | Support | Backend |
+| :--- | :---: | :--- |
+| **Android** | ✔️ | `MediaMetadataRetriever` |
+| **iOS** | ✔️ | `AVFoundation` |
+| **Windows** | ✔️ | `MediaInfoLib` (C++) |
+| **Linux** | ✔️ | `MediaInfoLib` (C++) |
+| **macOS** | ✔️ | `AVFoundation` |
+| **Web** | ✔️ | `mediainfo.js` |
+
+---
+
+## 📦 Installation
+
+Add `flutter_media_metadata_plus` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ...
-  flutter_media_metadata: ^1.0.0
+  flutter_media_metadata_plus: ^1.2.0
 ```
 
-<img width="649" src="https://user-images.githubusercontent.com/28951144/151707391-a59bd40a-5303-4dd8-af35-ff8918894dbb.png">
+### Web Configuration
 
-_Example app running on Windows._
+For Web support, add the following script to your `index.html` before the `main.dart.js` script:
 
-## Support
+```html
+<script type="text/javascript" src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
+```
 
-[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/alexmercerind)
+---
 
-<a href="https://www.buymeacoffee.com/alexmercerind" target="_blank"><img width="217" height="60" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" ></a>
+## 📖 Usage
 
-Please consider buying me a coffee if you like the plugin.
-
-## Documentation
-
-#### Windows, Linux, macOS, Android & iOS
+### Mobile & Desktop (File based)
 
 ```dart
+import 'dart:io';
+import 'package:flutter_media_metadata_plus/flutter_media_metadata_plus.dart';
+
 final metadata = await MetadataRetriever.fromFile(File(filePath));
 
-String? trackName = metadata.trackName;
-List<String>? trackArtistNames = metadata.trackArtistNames;
-String? albumName = metadata.albumName;
-String? albumArtistName = metadata.albumArtistName;
-int? trackNumber = metadata.trackNumber;
-int? albumLength = metadata.albumLength;
-int? year = metadata.year;
-String? genre = metadata.genre;
-String? authorName = metadata.authorName;
-String? writerName = metadata.writerName;
-int? discNumber = metadata.discNumber;
-String? mimeType = metadata.mimeType;
-int? trackDuration = metadata.trackDuration;
-int? bitrate = metadata.bitrate;
-Uint8List? albumArt = metadata.albumArt;
+print('Title: ${metadata.trackName}');
+print('Artist: ${metadata.trackArtistNames?.join(', ')}');
+print('Album: ${metadata.albumName}');
+print('Duration: ${metadata.trackDuration}ms');
+
+if (metadata.albumArt != null) {
+  // Use Image.memory(metadata.albumArt!)
+}
 ```
 
-#### Web
+### Web (Bytes based)
 
-For using the plugin on web, add following line to your `index.html`.
+```dart
+import 'package:flutter_media_metadata_plus/flutter_media_metadata_plus.dart';
 
-```diff
-   <link rel="manifest" href="manifest.json">
- </head>
- <body>
-+  <script type="text/javascript" src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
-   <!-- This script installs service_worker.js to provide PWA functionality to
-        application. For more information, see:
-        https://developers.google.com/web/fundamentals/primers/service-workers -->
-   <script>
-     var serviceWorkerVersion = null;
-     var scriptLoaded = false;
+final metadata = await MetadataRetriever.fromBytes(uInt8ListBytes);
 ```
 
-And use `MetadataRetriever.fromBytes` instead of `MetadataRetriever.fromFile`.
+---
 
+## 👨‍💻 Maintainer
 
-## Platforms
+**Bahman Teymouri Nezhad (PuzzleTakX)**
 
-|Platform|Status   |Author/Maintainer                                             |                                                  
-|--------|---------|--------------------------------------------------------------|
-|Windows |✔️        |[Hitesh Kumar Saini](https://github.com/alexmercerind)        |
-|Linux   |✔️        |[Hitesh Kumar Saini](https://github.com/alexmercerind)        |
-|Android |✔️        |[Hitesh Kumar Saini](https://github.com/alexmercerind)        |
-|Web     |✔️        |[Hitesh Kumar Saini](https://github.com/alexmercerind)        |
-|MacOS   |✔️        |[@DiscombobulatedDrag](https://github.com/DiscombobulatedDrag)|
-|iOS     |✔️        |[@DiscombobulatedDrag](https://github.com/DiscombobulatedDrag)|
+I am a passionate Flutter developer focused on building high-quality, performant tools for the community. This package is part of an effort to provide reliable and up-to-date media handling solutions for Flutter developers.
 
+---
 
-<img width="555" src="https://user-images.githubusercontent.com/28951144/151707427-76d75f04-9efe-4b1d-80fb-fdeea73dad26.png">
+## 📄 License
 
-_Example app running on Web._
+This library is licensed under the **MIT License**.
 
-<img width="200" src="https://user-images.githubusercontent.com/28951144/151707533-198ba2ca-d646-4bc4-811b-928f65ee03ea.png">
-
-_Example app running on Android._
-
-<img width="555" src="https://user-images.githubusercontent.com/28951144/151707526-319ca3f5-9849-4d57-8ea4-9595ee67e99c.png">
-
-_Example app running on Linux._
-
-
-## License 
-
-This library & work under this repository is MIT licensed.
-
-Copyright (c) 2021-2022 Hitesh Kumar Saini <saini123hitesh@gmail.com>
+Copyright (c) 2021-2022 Hitesh Kumar Saini (Original Author)
+Copyright (c) 2024-2026 Bahman Teymouri Nezhad (PuzzleTakX) (Maintainer)

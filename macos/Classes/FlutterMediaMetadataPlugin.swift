@@ -3,7 +3,7 @@ import FlutterMacOS
 
 public class FlutterMediaMetadataPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "flutter_media_metadata", binaryMessenger: registrar.messenger)
+    let channel = FlutterMethodChannel(name: "flutter_media_metadata_plus", binaryMessenger: registrar.messenger)
     let instance = FlutterMediaMetadataPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

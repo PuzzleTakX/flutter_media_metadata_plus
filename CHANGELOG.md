@@ -1,3 +1,14 @@
+## 1.2.0
+
+- Migrated to Dart 3.0 and Flutter 3.10.
+- Renamed package to `flutter_media_metadata_plus`.
+- Updated repository to [PuzzleTakX/flutter_media_metadata_plus](https://github.com/PuzzleTakX/flutter_media_metadata_plus).
+- Improved metadata extraction performance and processing speed across all platforms.
+- Optimized memory usage during album art retrieval.
+- Updated Android Gradle Plugin to 8.2.1 and Gradle to 8.5.
+- Raised minimum Android SDK to 19 and target SDK to 34.
+- Refactored documentation and project structure for better maintenance.
+
 ## 1.0.0
 
 - Now supporting all platforms Windows, Linux, macOS, Android, iOS & Web.
@@ -43,7 +54,7 @@
 
 ## 0.0.3
 
-- [media_metadata_retriever](https://github.com/alexmercerind/flutter_media_metadata) is now [flutter_media_metadata](https://github.com/alexmercerind/media_metadata_retriever).
+- [media_metadata_retriever](https://github.com/PuzzleTakX/flutter_media_metadata_plus) is now [flutter_media_metadata_plus](https://github.com/PuzzleTakX/flutter_media_metadata_plus).
 - Added Linux support with album arts.
 - Uses [MediaInfoLib](https://github.com/MediaArea/MediaInfoLib) on Linux.
 

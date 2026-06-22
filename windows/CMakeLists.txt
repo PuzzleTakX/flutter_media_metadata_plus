@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(PROJECT_NAME flutter_media_metadata)
+set(PROJECT_NAME flutter_media_metadata_plus)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(CXX_STANDARD_REQUIRED 17)
@@ -38,7 +38,7 @@ target_compile_definitions(
   FLUTTER_PLUGIN_IMPL
 )
 
-set(flutter_media_metadata_bundled_libraries
+set(flutter_media_metadata_plus_bundled_libraries
   ${CMAKE_CURRENT_SOURCE_DIR}/../cxx/external/MediaInfo.dll
   PARENT_SCOPE
 )

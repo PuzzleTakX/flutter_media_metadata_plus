@@ -1,6 +1,7 @@
-/// This file is a part of flutter_media_metadata (https://github.com/alexmercerind/flutter_media_metadata).
+/// This file is a part of flutter_media_metadata_plus (https://github.com/PuzzleTakX/flutter_media_metadata_plus).
 ///
-/// Copyright (c) 2021-2022, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+
+/// Copyright (c) 2024-2026, Bahman Teymouri Nezhad (PuzzleTakX) (Maintainer).
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
@@ -13,7 +14,7 @@ import 'package:js/js.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
-import 'package:flutter_media_metadata/src/models/metadata.dart';
+import 'package:flutter_media_metadata_plus/src/models/metadata.dart';
 
 /// ## MetadataRetriever
 ///
@@ -41,7 +42,7 @@ import 'package:flutter_media_metadata/src/models/metadata.dart';
 class MetadataRetriever {
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
-      'flutter_media_metadata',
+      'flutter_media_metadata_plus',
       const StandardMethodCodec(),
       registrar,
     );
@@ -52,7 +53,7 @@ class MetadataRetriever {
   Future<dynamic> handleMethodCall(MethodCall call) => throw PlatformException(
         code: 'Unimplemented',
         details:
-            'flutter_media_metadata for web doesn\'t implement \'${call.method}\'',
+            'flutter_media_metadata_plus for web doesn\'t implement \'${call.method}\'',
       );
 
   /// Extracts [Metadata] from a [File]. Works on Windows, Linux, macOS, Android & iOS.

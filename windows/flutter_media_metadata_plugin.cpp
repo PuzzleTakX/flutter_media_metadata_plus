@@ -1,12 +1,13 @@
-/// This file is a part of flutter_media_metadata
-/// (https://github.com/alexmercerind/flutter_media_metadata).
+/// This file is a part of flutter_media_metadata_plus
+/// (https://github.com/PuzzleTakX/flutter_media_metadata_plus).
 ///
-/// Copyright (c) 2021-2022, Hitesh Kumar Saini <saini123hitesh@gmail.com>.
+/// Copyright (c) 2021-2022, Hitesh Kumar Saini (Original Author).
+/// Copyright (c) 2024-2026, Bahman Teymouri Nezhad (PuzzleTakX) (Maintainer).
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the
 /// LICENSE file.
 
-#include "include/flutter_media_metadata/flutter_media_metadata_plugin.h"
+#include "include/flutter_media_metadata_plus/flutter_media_metadata_plugin.h"
 
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
@@ -36,7 +37,7 @@ void FlutterMediaMetadataPlugin::RegisterWithRegistrar(
     flutter::PluginRegistrarWindows* registrar) {
   auto channel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "flutter_media_metadata",
+          registrar->messenger(), "flutter_media_metadata_plus",
           &flutter::StandardMethodCodec::GetInstance());
 
   auto plugin = std::make_unique<FlutterMediaMetadataPlugin>();
