@@ -1,3 +1,28 @@
+## 1.2.7
+
+- Cleaned up unnecessary imports in Web platform.
+- Refactored JS interop for better stability and analysis scores.
+
+## 1.2.6
+
+- Refactored conditional exports to use `dart.library.js_interop`.
+- Synchronized method signatures across platforms to fix analysis errors.
+- Cleaned up all traces of `allowInterop` for WASM compatibility.
+- Fixed 0/20 platform support score on pub.dev.
+
+## 1.2.5
+
+- Migrated from `package:js` to `dart:js_interop` for Web platform.
+- Full compatibility with WASM and modern Dart standards.
+- Removed discontinued `js` dependency.
+- Fixed `allowInterop` analysis issues for pub.dev scores.
+- Raised minimum SDK to Dart 3.3.0 and Flutter 3.19.0.
+
+## 1.2.4
+
+- Fixed `allowInterop` analysis error on Web platform for pub.dev scores.
+- Improved explicit JS interop imports.
+
 ## 1.2.3
 
 - Fixed `allowInterop` undefined error on Web platform.

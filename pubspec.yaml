@@ -1,6 +1,6 @@
 name: flutter_media_metadata_plus
 description: A high-performance Flutter plugin to read metadata and album art of media files.
-version: 1.2.3
+version: 1.2.7
 homepage: https://github.com/PuzzleTakX/flutter_media_metadata_plus
 repository: https://github.com/PuzzleTakX/flutter_media_metadata_plus
 documentation: https://github.com/PuzzleTakX/flutter_media_metadata_plus/blob/master/README.md
@@ -10,13 +10,12 @@ screenshots:
     path: icon/logo.png
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  js: ^0.7.2
   flutter_web_plugins:
     sdk: flutter
 
@@ -24,7 +23,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  flutter_lints: ^2.0.1
+  flutter_lints: ^5.0.0
 
 flutter:
   plugin:
