@@ -5,8 +5,6 @@
 /// All rights reserved.
 /// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
-// ignore_for_file: missing_js_lib_annotation
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:js' show allowInterop;
@@ -20,25 +18,6 @@ import 'package:flutter_media_metadata_plus/src/models/metadata.dart';
 /// ## MetadataRetriever
 ///
 /// Use [MetadataRetriever.fromBytes] to extract [Metadata] from bytes of media file.
-///
-/// ```dart
-/// final metadata = MetadataRetriever.fromBytes(byteData);
-/// String? trackName = metadata.trackName;
-/// List<String>? trackArtistNames = metadata.trackArtistNames;
-/// String? albumName = metadata.albumName;
-/// String? albumArtistName = metadata.albumArtistName;
-/// int? trackNumber = metadata.trackNumber;
-/// int? albumLength = metadata.albumLength;
-/// int? year = metadata.year;
-/// String? genre = metadata.genre;
-/// String? authorName = metadata.authorName;
-/// String? writerName = metadata.writerName;
-/// int? discNumber = metadata.discNumber;
-/// String? mimeType = metadata.mimeType;
-/// int? trackDuration = metadata.trackDuration;
-/// int? bitrate = metadata.bitrate;
-/// Uint8List? albumArt = metadata.albumArt;
-/// ```
 ///
 class MetadataRetriever {
   static void registerWith(Registrar registrar) {
@@ -85,7 +64,7 @@ class MetadataRetriever {
                     resolve(
                       bytes.sublist(
                         offset,
-                        offset + chunkSize,
+                        offset + (chunkSize as int),
                       ),
                     );
                   },
@@ -96,32 +75,41 @@ class MetadataRetriever {
               .then(
             allowInterop(
               (result) {
-                var rawMetadataJson = jsonDecode(result)['media']['track'];
+                var rawMetadataJson = jsonDecode(result as String)['media']['track'];
                 bool isFound = false;
-                for (final data in rawMetadataJson) {
-                  if (data['@type'] == 'General') {
+                final tracks =
+                    rawMetadataJson is List ? rawMetadataJson : [rawMetadataJson];
+
+                dynamic targetData;
+                for (final data in tracks) {
+                  if (data is Map && data['@type'] == 'General') {
                     isFound = true;
-                    rawMetadataJson = data;
+                    targetData = data;
                     break;
                   }
                 }
+
                 if (!isFound) {
-                  throw Exception();
+                  completer.completeError(Exception('Metadata not found'));
+                  return;
                 }
+
                 final metadata = <String, dynamic>{
                   'metadata': {},
-                  'albumArt': base64Decode(rawMetadataJson['Cover_Data']),
+                  'albumArt': targetData['Cover_Data'] != null
+                      ? base64Decode(targetData['Cover_Data'] as String)
+                      : null,
                   'filePath': null,
                 };
                 _kMetadataKeys.forEach((key, value) {
-                  metadata['metadata'][key] = rawMetadataJson[value];
+                  metadata['metadata'][key] = targetData[value];
                 });
                 completer.complete(Metadata.fromJson(metadata));
               },
             ),
             allowInterop(
               () {
-                completer.completeError(Exception());
+                completer.completeError(Exception('MediaInfo analysis failed'));
               },
             ),
           );
@@ -129,7 +117,7 @@ class MetadataRetriever {
       ),
       allowInterop(
         () {
-          completer.completeError(Exception());
+          completer.completeError(Exception('MediaInfo initialization failed'));
         },
       ),
     );
@@ -143,15 +131,12 @@ class _Promise<T> {
       void Function(void Function(T result) resolve, Function reject) executor);
   external _Promise then(void Function(T result) onFulfilled,
       [Function onRejected]);
-  // external _Promise(void executor(void resolve(T result), Function reject));
-  // external _Promise then(void onFulfilled(T result), [Function onRejected]);
 }
 
 @JS('MediaInfo')
 // ignore: non_constant_identifier_names
 external String MediaInfo(
   Object opts,
-  // ignore: library_private_types_in_public_api
   void Function(_MediaInfo) successCallback,
   void Function() erroCallback,
 );
@@ -159,9 +144,9 @@ external String MediaInfo(
 @JS()
 @anonymous
 class _Opts {
-  external int chunkSize;
-  external bool coverData;
-  external String format;
+  external int get chunkSize;
+  external bool get coverData;
+  external String get format;
 
   external factory _Opts({int chunkSize, bool coverData, String format});
 }
@@ -169,11 +154,8 @@ class _Opts {
 @JS()
 @anonymous
 class _MediaInfo {
-  external _Promise<String> analyzeData(int Function() getSize,
-      _Promise<Uint8List> Function(int chunkSize, int offset) promise);
-  // _Promise<Uint8List> promise(int chunkSize, int offset));
-
-  external factory _MediaInfo();
+  external _Promise<dynamic> analyzeData(int Function() getSize,
+      _Promise<Uint8List> Function(dynamic chunkSize, dynamic offset) promise);
 }
 
 const _kMetadataKeys = <String, String>{

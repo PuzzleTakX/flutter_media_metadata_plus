@@ -1,3 +1,8 @@
+## 1.2.2
+
+- Fixed `allowInterop` undefined error on Web platform.
+- Improved JS interop reliability for metadata extraction on Web.
+
 ## 1.2.1
 
 - Fixed Gradle configuration issue for newer Flutter versions.
